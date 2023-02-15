@@ -1,21 +1,23 @@
 package model;
 
 public abstract class Operacao extends Thread{
-	protected double a, b, resultado;
+	protected double a, b;
 	protected int segundosParaDormir;	
 	final int SECONDS_TO_MILISECONDS = 1000;
 	
 	@Override
 	public void run() {
-		System.out.printf("Eu sou a Thread %s (%.2f) e vou dormir por %d segundos!\n", this.getName(), this.getResultado(), this.getSegundosParaDormir());
+		final String blue = "\033[0;36m", green = "\033[0;32m";
+		
+		System.out.printf(blue + "Eu sou a Thread %s (%.0f) e vou dormir por %d segundos!\n", this.getName(), this.calcular(), this.getSegundosParaDormir());
 		try{
 			long millis = (long)(segundosParaDormir * SECONDS_TO_MILISECONDS);
 			Thread.sleep(millis);		
 		}
 		catch (InterruptedException e) {
-	        System.err.println("A Thread " + this.getName() + " foi interrompida inesperadamente, erro: " + e.getMessage());
+	        System.err.println("A Thread " + this.getName() + " foi interrompida por outro processo, erro: " + e.getMessage());
 	    }
-		System.out.printf("Eu sou a Thread %s (%.2f). Já se passaram %d segundos, então terminei!\n", this.getName(), resultado, this.getSegundosParaDormir());
+		System.out.printf(green + "Eu sou a Thread %s (%.0f). Ja se passaram %d segundos, entao terminei!\n", this.getName(), this.calcular(), this.getSegundosParaDormir());
 	}
 		
 	protected Operacao(double a, double b, int segundosParaDormir) {
@@ -24,7 +26,9 @@ public abstract class Operacao extends Thread{
 		this.segundosParaDormir = segundosParaDormir;
 	}
 	
-	public double getA() {
+	public abstract double calcular();
+	
+	protected double getA() {
 		return a;
 	}
 
@@ -32,7 +36,7 @@ public abstract class Operacao extends Thread{
 		this.a = a;
 	}
 
-	public double getB() {
+	protected double getB() {
 		return b;
 	}
 
@@ -40,14 +44,6 @@ public abstract class Operacao extends Thread{
 		this.b = b;
 	}	
 	
-	protected double getResultado() {
-		return resultado;
-	}
-
-	public void setResultado(double resultado) {
-		this.resultado = resultado;
-	}
-
 	protected int getSegundosParaDormir() {
 		return segundosParaDormir;
 	}

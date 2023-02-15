@@ -4,11 +4,13 @@ public class Divisao extends Operacao{
 	
 	public Divisao (double a, double b, int segundosParaDormir) {
 		super(a, b, segundosParaDormir);
-		this.setName("DIVISAO");
-		this.setResultado(this.calcular());
+		this.setName("DIVISAO");		
 	}
 
-	private final double calcular() {
-		return this.getA() / this.getB();		
+	@Override
+	public double calcular() {		
+		return this.getA() / this.getB();
 	}
+
+	
 }

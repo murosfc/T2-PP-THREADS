@@ -4,11 +4,11 @@ public class Subtracao extends Operacao{
 	
 	public Subtracao (double a, double b, int segundosParaDormir) {
 		super(a, b, segundosParaDormir);
-		this.setName("MULTIPLICACAO");
-		this.setResultado(this.calcular());
+		this.setName("SUBTRACAO");		
 	}
 
-	private final double calcular() {
-		return this.getA() * this.getB();		
+	@Override
+	public double calcular() {
+		return this.getA() - this.getB();		
 	}
 }
