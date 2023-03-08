@@ -1,5 +1,6 @@
 package model;
 
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public abstract class Operacao extends Thread implements OperacaoInterface {
@@ -11,31 +12,36 @@ public abstract class Operacao extends Thread implements OperacaoInterface {
 
 	@Override
 	public void run() {
-		final String blue = "\033[0;36m", green = "\033[0;32m", yellow = "\033[0;33m";		
+		final String yellow = "\033[0;33m";		
+		final List<String> cores = List.of("\033[0;36m", "\033[0;32m");
 		long miliSegundosParaDormir = (long) (segundosParaDormir * SECONDS_TO_MILISECONDS);
 
 		try {
 			for (int i = 0; i < numeroDeVezes; i++) {
+				String cor = i%2 == 0 ? cores.get(0) : cores.get(1);
 				semAtual.acquire(); // adquire o semáforo atual para iniciar a execução
-				System.out.printf(blue + "Eu sou a Thread %s (%.0f) da rodada %d e vou dormir por %d segundos!\n", this.getName(),
+				System.out.printf(cor + "Eu sou a Thread %s = %.2f da rodada %d e vou dormir por %d segundos!\n", this.getName(),
 						this.calcular(), i+1, segundosParaDormir);
 
 				Thread.sleep(miliSegundosParaDormir);
 				
-				System.out.printf(green + "Eu sou a Thread %s (%.0f) da rodada %d. Ja se passaram %d segundos, entao terminei!",
-						this.getName(), this.calcular(), i+1, segundosParaDormir);
+				//se fim do loop de um bloco, pula uma linha
+				if (this.getName().equals("DIVISAO")) {
+					System.out.printf("\n");
+				}
 				
 				//testa se não é a última rodada do loop para encerrar
 				if (i != numeroDeVezes - 1 || !this.getName().equals("DIVISAO")) { 
 					semProximo.release(); // libera o semáforo da próxima thread, se não for a última rodada					
 				} else {					
-					System.out.println(yellow + "\n\nTodas as Threads finalizadas");
+					System.out.printf(yellow + "Todas as Threads finalizadas");
 				}
-				System.out.println("\n");
+				
+				
 			}
 		} catch (InterruptedException e) {
 			System.err.println(
-					"A Thread " + this.getName() + " foi interrompida por outro processo, erro: " + e.getMessage());
+					"\nA Thread " + this.getName() + " foi interrompida por outro processo, erro: " + e.getMessage());
 		}			
 	}
 

@@ -48,11 +48,11 @@ public class main {
 		soma.start();
 		subtracao.start();
 		multiplicacao.start();
-		divisao.start();       
+		divisao.start();  		
 	}
 	
 	static int gerarAleatorio() {
 		Random random = new Random();
-		return random.nextInt(2) + 1;
+		return random.nextInt(10) + 1;
 	}
 }
