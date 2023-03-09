@@ -5,7 +5,7 @@ import java.util.concurrent.Semaphore;
 
 public abstract class Operacao extends Thread implements OperacaoInterface {
 	protected double a, b;
-	protected int numeroDeVezes, segundosParaDormir;
+	public int numeroDeVezes, segundosParaDormir;
 	protected Semaphore semAtual, semProximo;
 	final int SECONDS_TO_MILISECONDS = 1000;
 	final int PERMITS = 1;
@@ -20,7 +20,7 @@ public abstract class Operacao extends Thread implements OperacaoInterface {
 			for (int i = 0; i < numeroDeVezes; i++) {
 				String cor = i%2 == 0 ? cores.get(0) : cores.get(1);
 				semAtual.acquire(); // adquire o semáforo atual para iniciar a execução
-				System.out.printf(cor + "Eu sou a Thread %s = %.2f da rodada %d e vou dormir por %d segundos!\n", this.getName(),
+				System.out.printf(cor + this.getName()+ ": %.2f\n",
 						this.calcular(), i+1, segundosParaDormir);
 
 				Thread.sleep(miliSegundosParaDormir);

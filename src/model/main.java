@@ -1,5 +1,6 @@
 package model;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
@@ -44,6 +45,12 @@ public class main {
 		Subtracao subtracao = new Subtracao(a, b, gerarAleatorio(), N, semSu, semMu);
 		Multiplicacao multiplicacao = new Multiplicacao(a, b, gerarAleatorio(), N, semMu, semDi);
 		Divisao divisao = new Divisao(a, b, gerarAleatorio(), N, semDi, semSo ); 
+		
+		List<Operacao> listaThreads = List.of(soma, subtracao, multiplicacao, divisao);		
+		for (int i=0; i<listaThreads.size(); i++) {
+			System.out.println("Tempo que a Thread " +listaThreads.get(i).getName() +" ira dormir: "+listaThreads.get(i).getSegundosParaDormir()+" segundos");
+		}
+		System.out.println("\n");
 		
 		soma.start();
 		subtracao.start();

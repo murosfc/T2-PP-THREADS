@@ -4,8 +4,8 @@ import java.util.concurrent.Semaphore;
 
 public class Divisao extends Operacao{
 	
-	public Divisao (double a, double b, int vezes, int N, Semaphore semAtual, Semaphore semProximo) {
-		super(a, b, vezes, N, semAtual, semProximo);
+	public Divisao (double a, double b, int segundosDormir, int N, Semaphore semAtual, Semaphore semProximo) {
+		super(a, b, segundosDormir, N, semAtual, semProximo);
 		this.setName("DIVISAO");		
 	}
 	
