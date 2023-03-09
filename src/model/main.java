@@ -46,11 +46,13 @@ public class main {
 		Multiplicacao multiplicacao = new Multiplicacao(a, b, gerarAleatorio(), N, semMu, semDi);
 		Divisao divisao = new Divisao(a, b, gerarAleatorio(), N, semDi, semSo ); 		
 		
+		//loop apenas para exibir os temos que cada Thread irá dormir
 		for (Operacao o :  List.of(soma, subtracao, multiplicacao, divisao)) {
 			System.out.println("Tempo que a Thread " + o.getName() +" ira dormir: "+ o.getSegundosParaDormir()+" segundos");
 		}	
 		System.out.printf("\n");
 		
+		//inicia todas as Threads
 		soma.start();
 		subtracao.start();
 		multiplicacao.start();

@@ -19,6 +19,7 @@ public abstract class Operacao extends Thread implements OperacaoInterface {
 		try {
 			for (int i = 0; i < numeroDeVezes; i++) {
 				String cor = i%2 == 0 ? cores.get(0) : cores.get(1);
+				
 				semAtual.acquire(); // adquire o semáforo atual para iniciar a execução
 				
 				Thread.sleep(miliSegundosParaDormir);
@@ -31,14 +32,12 @@ public abstract class Operacao extends Thread implements OperacaoInterface {
 					System.out.printf("\n");
 				}
 				
-				//testa se não é a última rodada do loop para encerrar
+				//testa se não é a última rodada do loop para liberar o semáforo ou se não encerrar
 				if (i != numeroDeVezes - 1 || !this.getName().equals("DIVISAO")) { 
 					semProximo.release(); // libera o semáforo da próxima thread, se não for a última rodada					
 				} else {					
 					System.out.printf(yellow + "Todas as Threads finalizadas");
-				}
-				
-				
+				}				
 			}
 		} catch (InterruptedException e) {
 			System.err.println(
