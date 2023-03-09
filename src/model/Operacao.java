@@ -20,10 +20,11 @@ public abstract class Operacao extends Thread implements OperacaoInterface {
 			for (int i = 0; i < numeroDeVezes; i++) {
 				String cor = i%2 == 0 ? cores.get(0) : cores.get(1);
 				semAtual.acquire(); // adquire o semáforo atual para iniciar a execução
+				
+				Thread.sleep(miliSegundosParaDormir);
+				
 				System.out.printf(cor + this.getName()+ ": %.2f\n",
 						this.calcular(), i+1, segundosParaDormir);
-
-				Thread.sleep(miliSegundosParaDormir);
 				
 				//se fim do loop de um bloco, pula uma linha
 				if (this.getName().equals("DIVISAO")) {

@@ -44,13 +44,12 @@ public class main {
 		Soma soma = new Soma(a, b, gerarAleatorio(), N, semSo, semSu);
 		Subtracao subtracao = new Subtracao(a, b, gerarAleatorio(), N, semSu, semMu);
 		Multiplicacao multiplicacao = new Multiplicacao(a, b, gerarAleatorio(), N, semMu, semDi);
-		Divisao divisao = new Divisao(a, b, gerarAleatorio(), N, semDi, semSo ); 
+		Divisao divisao = new Divisao(a, b, gerarAleatorio(), N, semDi, semSo ); 		
 		
-		List<Operacao> listaThreads = List.of(soma, subtracao, multiplicacao, divisao);		
-		for (int i=0; i<listaThreads.size(); i++) {
-			System.out.println("Tempo que a Thread " +listaThreads.get(i).getName() +" ira dormir: "+listaThreads.get(i).getSegundosParaDormir()+" segundos");
-		}
-		System.out.println("\n");
+		for (Operacao o :  List.of(soma, subtracao, multiplicacao, divisao)) {
+			System.out.println("Tempo que a Thread " + o.getName() +" ira dormir: "+ o.getSegundosParaDormir()+" segundos");
+		}	
+		System.out.printf("\n");
 		
 		soma.start();
 		subtracao.start();
