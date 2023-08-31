@@ -1,3 +1,4 @@
+//Grupo: Rafael Panisset, Rafael Teixeira, Gabriel, Felipe
 package model;
 
 import java.util.List;
